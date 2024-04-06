@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block sytles %}
+<link href="{% static 'css/stats.css'%}" rel="stylesheet" />
+{% endblock  %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-10">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="">Expenses Summary</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+           Summary
+          </li>
+        </ol>
+      </nav>
+    </div>
+
+    <div class="col-md-2">
+      <a href="" class="btn btn-primary">Refresh</a>
+    </div>
+
+  </div>
+
+<div class="row">
+<div class="col-sm-6 mt-2 card mycard">
+ <canvas id="myChart"></canvas>
+</div>
+<div class="col-sm-6 mt-2 card mycard">
+ <canvas id="line"></canvas>
+</div>
+<div class="col-sm-6 mt-2 card thick-border">
+ <canvas id="bar"></canvas>
+</div>
+</div>
+</div>
+
+<script src="{% static 'js/chart1.js' %}"></script>
+
+</script>
+
+{% endblock content %}
