@@ -9,3 +9,10 @@ class UserPreference(models.Model):
      
      def __str__(self):
           return str(self.user) + 's' + 'preferences'
+     
+class Budget(models.Model):
+    budget = models.FloatField(null = True)
+    user = models.OneToOneField(to=User, on_delete = models.CASCADE)
+    
+    def __str__(self):
+        return self.budget

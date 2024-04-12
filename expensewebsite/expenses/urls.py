@@ -19,6 +19,8 @@ urlpatterns = [
     path('get_expense_by_month', views.get_expense_by_month,
          name="get_expense_by_month"),
     
+    path('monthSpendBudget', csrf_exempt(views.monthSpendBudget),
+         name="monthSpendBudget"),
     
     path('stats', views.stats_view,
          name="stats")

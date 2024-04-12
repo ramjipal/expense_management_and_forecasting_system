@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 import json
 from django.http import JsonResponse
-from userpreferences.models import UserPreference
+from userpreferences.models import UserPreference, Budget
 import datetime
 
 
@@ -163,7 +163,7 @@ def get_expense_by_month(request):
     month_dic = {}
 
     for cmx in all_expenses:
-        month = cmx.date.strftime('%B')  # Convert date to string
+        month = cmx.date.strftime('%B')  # Convert date month to string
         if month in month_dic:
             month_dic[month] += cmx.amount
         else:
@@ -171,18 +171,25 @@ def get_expense_by_month(request):
 
     return JsonResponse({'expense_by_month': month_dic}, safe=False)
 
+def monthSpendBudget(request):
+    curr_month = datetime.datetime.today().month
+    curr_year = datetime.datetime.today().year
+    total_expense = 0
+    userbudget = Budget.objects.filter(user = request.user)[:1].get()
+    budget = userbudget.budget
+    expense = Expense.objects.filter(owner = request.user, date__year = curr_year, date__month = curr_month)
+    for ex in expense:
+        total_expense+=ex.amount
+    return JsonResponse({'monthly_expense': total_expense, 'budget': budget}, safe=False)
 
+        
+    
 
 
 if __name__== "__main__":
     js = get_expense_by_date("ram")
         
-    
-    
-    
-
-
-
-
+        
+        
 def stats_view(request):
     return render(request, 'expenses/stats.html')

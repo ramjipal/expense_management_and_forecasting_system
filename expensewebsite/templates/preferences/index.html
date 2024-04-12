@@ -24,6 +24,20 @@
       </div>
     </div>
   </form>
+
+
+  
+<h5>Set budget</h5>
+<form class = "" action = "{% url 'setbudget' %}"  method = "post">
+  {% csrf_token %}
+  <div class="form-outline">
+    <input type="number" id="budget" name = "budget" class="form-control" />
+    <div class="input-group-append mt-2">
+      <input class="btn btn-outline-secondary" type="submit" value="set budget" />
+    </div>
+    
+</div>
+</form>
 </div>
 
 <hr />

@@ -29,19 +29,44 @@
 
 <div class="row">
 <div class="col-sm-6 mt-2 card mycard">
- <canvas id="myChart"></canvas>
+    <canvas id="myChart"></canvas>
 </div>
 <div class="col-sm-6 mt-2 card mycard">
- <canvas id="line"></canvas>
+    <canvas id="line"></canvas>
 </div>
 <div class="col-sm-6 mt-2 card thick-border">
- <canvas id="bar"></canvas>
+    <canvas id="bar"></canvas>
+</div>
+<div class="mt-2 my-5 ml-5 card thick-border shadow "style="width: 18rem;" >
+  <h6 class = 'my-3 mx-5'><b>Monthly Budget Tracking</b></h6>
+    <div class="budget">
+      <table class="table table-sm" >
+        <tbody>
+          <tr>
+          <th scope = "row">Budget</th>
+          <td id = "budget"></td>
+          </tr>
+          <tr>
+          <th scope = "row">Total spend</th>
+          <td id = "total_spend"></td>
+          </tr>
+          <tr>
+          <th scope = "row">Remaining</th>
+          <td id = "remaining"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 </div>
 </div>
 </div>
+ 
 
+<script src="{% static 'js/getdata.js' %}"></script>
 <script src="{% static 'js/chart1.js' %}"></script>
 
 </script>
+
+
 
 {% endblock content %}

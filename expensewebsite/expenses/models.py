@@ -18,12 +18,6 @@ class Expense(models.Model):
     class Meta:
         ordering = ['-date']
         
-class Budget(models.Model):
-    budget = models.FloatField()
-    owner = models.ForeignKey(to = User, on_delete = models.CASCADE)
-    
-    def __str__(self):
-        return self.budget
 
 
 
