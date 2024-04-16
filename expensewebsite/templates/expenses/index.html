@@ -28,7 +28,18 @@
     {% include 'partials/_messages.html' %} {% if expenses.count %}
 
     <div class="row">
-      <div class="col-md-8"></div>
+      <div class="col-md-4">
+        <table class = "table table-borderless">
+          <tbody>
+            <tr>
+              <th scope = "row">Predicted Expense EOM:</th>
+              <td id = "predicted_expense">Not available</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+      <div class = "col-md-4"></div>
       <div class="col-md-4">
 
         <div class="form-group">
@@ -119,6 +130,7 @@
 </div>
 
 <script src="{% static 'js/searchExpenses.js' %}"></script>
+<script src="{% static 'js/expensePred.js' %}"></script>
 
 
 

@@ -1,5 +1,4 @@
 
-     console.log('fetching month spend budget');
      fetch("/monthSpendBudget")
        .then((res) => res.json())
        .then((results) => {

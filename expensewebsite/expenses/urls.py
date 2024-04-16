@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 from django.views.decorators.csrf import csrf_exempt
@@ -23,5 +23,7 @@ urlpatterns = [
          name="monthSpendBudget"),
     
     path('stats', views.stats_view,
-         name="stats")
+         name="stats"),
+    
+    path('predict_expense/', include('expenseprediction.urls'))
 ]

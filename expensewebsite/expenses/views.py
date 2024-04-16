@@ -182,7 +182,7 @@ def monthSpendBudget(request):
         total_expense+=ex.amount
     return JsonResponse({'monthly_expense': total_expense, 'budget': budget}, safe=False)
 
-        
+ 
     
 
 
