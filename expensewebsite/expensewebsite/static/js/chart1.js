@@ -156,10 +156,10 @@ const getMonthExpense = () => {
     .then((res) => res.json())
     .then((results) => {
       console.log("results", results);
-      const date_wise_expense = results.expense_by_month;
+      const month_wise_expense = results.expense_by_month;
       const [labels, data] = [
-        Object.keys(date_wise_expense),
-        Object.values(date_wise_expense),
+        Object.keys(month_wise_expense),
+        Object.values(month_wise_expense),
       ];
       rend_bar(data, labels);
     });
@@ -187,3 +187,4 @@ document.addEventListener('DOMContentLoaded', function() {
   console.log("calling function");
   getSpendBudget();
 });
+

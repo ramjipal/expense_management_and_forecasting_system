@@ -6,6 +6,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 import json
 from django.http import JsonResponse
+import datetime
+
 # Create your views here.
 
 
@@ -108,3 +110,71 @@ def delete_income(request, id):
     income.delete()
     messages.success(request, 'record removed')
     return redirect('income')
+
+def income_source_summary(request):
+    todays_date = datetime.date.today()
+    six_months_ago = todays_date-datetime.timedelta(days=30*6)
+    incomes = UserIncome.objects.filter(owner=request.user,
+                                      date__gte=six_months_ago, date__lte=todays_date)
+    finalrep = {}
+    def get_source(income):
+        return income.source
+    source_list = list(set(map(get_source, incomes)))
+
+    def get_income_source_amount(source):
+        amount = 0
+        filtered_by_source = incomes.filter(source=source)
+
+        for item in filtered_by_source:
+            amount += item.amount
+        return amount
+
+    for y in source_list:
+        finalrep[y] = get_income_source_amount(y)
+    return JsonResponse({'income_source_data': finalrep}, safe=False)
+
+
+import datetime
+from django.http import JsonResponse
+
+
+def get_income_by_date(request):
+    curr_year = datetime.date.today().year
+    curr_month = datetime.date.today().month
+    curr_month_income = UserIncome.objects.filter(
+        owner=request.user, date__year=curr_year, date__month=curr_month).order_by('date')
+    income_dic = {}
+
+    for cmx in curr_month_income:
+        date_str = cmx.date.strftime('%Y-%m-%d')  # Convert date to string
+        if date_str in income_dic:
+            income_dic[date_str] += cmx.amount
+        else:
+            income_dic[date_str] = cmx.amount
+
+    return JsonResponse({'income_by_date': income_dic}, safe=False)
+
+def get_income_by_month(request):
+    all_income = UserIncome.objects.filter(
+        owner=request.user).order_by('date')
+    month_dic = {}
+
+    for cmx in all_income:
+        month = cmx.date.strftime('%B')  # Convert date month to string
+        if month in month_dic:
+            month_dic[month] += cmx.amount
+        else:
+            month_dic[month] = cmx.amount
+
+    return JsonResponse({'income_by_month': month_dic}, safe=False)
+
+
+
+
+
+def stats_view(request):
+    return render(request, 'income/stats.html')
+
+
+    
+    

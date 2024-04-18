@@ -25,5 +25,8 @@ urlpatterns = [
     path('stats', views.stats_view,
          name="stats"),
     
-    path('predict_expense/', include('expenseprediction.urls'))
+    path('predict_expense/', include('expenseprediction.urls')), 
+    
+    path('export-csv', views.export_csv, name = 'export-csv')
+#     path('export-pdf', views.export_pdf, name = 'export-pdf')
 ]

@@ -24,8 +24,6 @@ def predictExpense(request):
           df['50_MA'] = df['amount'].ewm(span=10, adjust=False).mean()
           df['200_MA'] = df['amount'].ewm(span=15, adjust=False).mean()
           df['MA_Diff'] = df['50_MA'] - df['200_MA']
-          print("________________")
-          print(type(df['date'].iloc[0]))
           df['day'] = df['date'].apply(lambda x: x.weekday())
           last_expense_date = df['date'].iloc[-1]
           last_expense = df[df['date'] == last_expense_date]
@@ -34,7 +32,7 @@ def predictExpense(request):
           df.reset_index(drop = True, inplace = True)
           # print(df)
           return df, last_expense_date, last_expense
-     if len(data)>=1:
+     if len(data)>=1:#the data should be greater than 200 for better accuracy
           curr_date = datetime.today()
           nxt_mnth = curr_date.replace(day=28) + timedelta(days=4)
      
@@ -58,5 +56,8 @@ def predictExpense(request):
                     new_data_df = pd.DataFrame([{'date': new_data_list[0], 'amount': new_data_list[1]}])
                     data.loc[len(data)] = new_data_df.iloc[0]
                     del df
-
+          
+          
+     
+     
      return JsonResponse({'predicted_expense':round(period_expense)})

@@ -29,11 +29,11 @@
 
     <div class="row">
       <div class="col-md-4">
-        <table class = "table table-borderless">
+        <table class = "table table-borderless table-warning">
           <tbody>
             <tr>
               <th scope = "row">Predicted Expense EOM:</th>
-              <td id = "predicted_expense">Not available</td>
+              <td id = "predicted_expense" style = "font-weight: 700; color: #005A9C;">Not available</td>
             </tr>
 
           </tbody>
@@ -127,6 +127,14 @@
     {% endif %}
   </div>
 </div>
+</div>
+
+
+<div class = "col-md-4 mt-4">
+
+  <a href = "{% url 'export-csv' %}" class = "btn btn-secondary">Export CSV </a>
+  {% comment %} <a href = "{% url 'export-pdf' %}" class = "btn btn-secondary">Export PDF </a> {% endcomment %}
+
 </div>
 
 <script src="{% static 'js/searchExpenses.js' %}"></script>

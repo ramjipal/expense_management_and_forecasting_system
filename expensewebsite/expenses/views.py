@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 import json
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from userpreferences.models import UserPreference, Budget
 import datetime
 
@@ -139,7 +139,6 @@ def expense_category_summary(request):
 
 import datetime
 from django.http import JsonResponse
-from .models import Expense
 
 def get_expense_by_date(request):
     curr_year = datetime.date.today().year
@@ -186,10 +185,68 @@ def monthSpendBudget(request):
     
 
 
-if __name__== "__main__":
-    js = get_expense_by_date("ram")
+
         
         
         
 def stats_view(request):
     return render(request, 'expenses/stats.html')
+
+
+
+import csv
+def export_csv(request):
+    response = HttpResponse(content_type = 'text/csv')
+    response['Content-Disposition'] = 'attachment; filename = Expenses' + \
+        str(datetime.datetime.now())+ '.csv'
+    
+    writer = csv.writer(response)
+    writer.writerow(['Amount', 'Description', 'Category', 'Date'])
+    
+    expenses = Expense.objects.filter(owner = request.user)
+    for expense in expenses:
+        writer.writerow([expense.amount, expense.description, expense.category, expense.date])
+        
+    return response
+    
+    
+
+# from django.template.loader import render_to_string
+# from weasyprint import HTML
+# import tempfile
+# from django.db.models import Sum
+# import os
+
+# os.add_dll_directory(r"C:\Program Files\GTK3-Runtime Win64\bin")
+
+# def export_pdf(request):
+#     response = HttpResponse(content_type = 'application/pdf')
+#     response['Content-Disposition'] = 'inline; attachment; filename = Expenses' + \
+#         str(datetime.datetime.now())+ '.pdf'
+        
+#     response['Content-Transfer-Encoding'] = 'binary'
+#     expenses = Expense.objects.filter(owner = request.user)
+    
+#     sum = expenses.aggregate(Sum('amount'))
+#     html_string = render_to_string(
+#         'expenses/pdf-output.html', {'expenses': expenses, 'total': sum['amount_sum']})
+#     import os
+
+#     os.add_dll_directory(r"C:\Program Files\GTK3-Runtime Win64\bin")
+#     html = HTML(string=html_string)
+    
+#     result = html.writ_pdf()
+    
+#     with tempfile.NamedTemporaryFile(delete = True) as output:
+#         output.write(result)
+#         output.flush()
+        
+#         output = open(output.name, 'rb')
+#         response.write(output.read())
+        
+#     return response
+    
+
+
+if __name__== "__main__":
+    js = get_expense_by_date("ram")
