@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Category, Expense
+from django.urls import reverse
 # Create your views here.
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -30,6 +31,11 @@ def index(request):
     paginator = Paginator(expenses, 5)
     page_number = request.GET.get('page')
     page_obj = Paginator.get_page(paginator, page_number)
+    
+    exist = UserPreference.objects.filter(user=request.user).exists()
+    if not exist:
+        messages.warning(request, 'Please set your currency preference first.')
+        return redirect(reverse('preferences'))
     currency = UserPreference.objects.get(user=request.user).currency
     context = {
         'expenses': expenses,
