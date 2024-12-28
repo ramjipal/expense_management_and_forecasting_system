@@ -20,8 +20,7 @@ This **Django-based Expense Management System** provides users with a comprehens
 - **Frontend**: Chart.js, AJAX, HTML, CSS  
 - **Database**: PostgreSQL  
 - **Machine Learning**: Predictive model for expense forecasting using exponential moving average
-- ### google colab link for ML algorithm:
-https://colab.research.google.com/drive/1jO0D7SKp5V4xM1gG2133Yt-jbbA5wppu#scrollTo=Mz1c5Ep35aq5
+
 
 This system empowers users with effective tools to track their spending habits and improve financial planning.  
 
@@ -50,6 +49,11 @@ This system empowers users with effective tools to track their spending habits a
 7. Run the development server:
     ```bash
     python manage.py runserver
+
+## Links:
+- google colab link for ML algorithm: https://colab.research.google.com/drive/1jO0D7SKp5V4xM1gG2133Yt-jbbA5wppu#scrollTo=Mz1c5Ep35aq5
+- Demo video: https://www.youtube.com/watch?v=MFXV4T8wdDI
+
 ## Screenshots
 
 
